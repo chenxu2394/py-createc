@@ -1,0 +1,5 @@
+include CHANGELOG.md
+include RELEASE_NOTES.md
+include requirements.txt
+recursive-include examples *.py *.config *.yaml *.png *.dat *.VERT *.specgrid .tmp
+recursive-include tests *.VERT *.csv *.dat *.npy *.py
