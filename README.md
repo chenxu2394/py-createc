@@ -14,10 +14,34 @@ In addition to interfacing with the STM, Py-Createc offers a suite of classes th
 
 The online documentation can be found [here](https://py-createc.readthedocs.io).
 
+## Supported capabilities
+
+The Createc controller interface requires Windows, the Createc vendor software,
+and `pywin32`. The controller code was used successfully with the live vendor
+system, but that integration was not re-tested while preparing this release
+because the vendor system was no longer available.
+
+Reading Createc data files is independent of the controller. The random and CPU
+modes of the oscilloscope example and the file-viewing portion of the map
+example can also run without the controller. Hardware-backed example modes and
+the map's STM controls remain Windows/vendor features.
+
 ## Installation
 
-In the root directory, run
-`pip install -e .`
+This release supports Python 3.7 through 3.9. From the repository root, install
+the package with:
+
+```bash
+python -m pip install .
+```
+
+Install optional example dependencies when needed:
+
+```bash
+python -m pip install ".[example_maps]"
+python -m pip install ".[osc]"
+python -m pip install ".[utility]"
+```
 
 ## Quickstart
 
@@ -67,21 +91,49 @@ image_file = createc.DAT_IMG('path/to/filename.dat')
 
 ## More Elaborate Examples
 
-The [examples folder](https://github.com/chenxu2394/py_createc/tree/main/examples) contains useful scripts to communicate with the STM. These scripts demonstrate the advanced applications of the Py-Createc package.
+The [`examples` folder](./examples) contains offline visualization modes,
+sample data, and scripts that communicate with the STM. It is available in the
+GitHub repository, tagged source downloads, and Python source distribution. It
+is not installed by the wheel.
+
+From a repository checkout or extracted source distribution, install the
+optional dependencies for all three examples:
+
+```bash
+python -m pip install ".[osc,example_maps,utility]"
+```
 
 #### 1. Oscilloscope Example (`./examples/osc/oscilloscope.py`)
 
-This script displays the temperatures of the STM in an oscilloscope format. Users can view the value and its timestamp by hovering the cursor over the curves. It's also configurable to display other signals.
+This script displays streaming values in an oscilloscope format. With no
+hardware option it shows random data, and `--cpu` shows local CPU usage. The
+STM-backed `--zi`, `--temperature`, and `--adc` modes require Windows and the
+running vendor software.
+
+```bash
+python examples/osc/oscilloscope.py
+python examples/osc/oscilloscope.py --cpu
+```
 
 ![oscilloscope](./docs/osc.gif)
 
 #### 2. Image Mapping Applet (`./examples/map/map.py`)
 
 (`matplotlib` is required for this applet.)
-This helper applet facilitates piecing together images scanned at different locations. Additionally, it enables communication with the STM through a 'Connect to STM' feature, which synchronizes the applet's tip position with that of the STM.
+This helper applet facilitates piecing together images scanned at different
+locations. File viewing is offline. Its `Connect to STM` and coordinate-control
+features require Windows and the running vendor software.
+
+```bash
+python examples/map/map.py
+```
 
 ![map](./docs/map.gif)
 
 #### 3. STM Utility Tool (`./examples/utility/stm_tool.py`)
 
 With this utility, changing STM parameters is simplified to a single click, thus enhancing user convenience and efficiency.
+
+```bash
+python examples/utility/stm_tool.py
+```

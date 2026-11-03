@@ -25,11 +25,11 @@ def test_VERT_SPEC():
     import pandas as pd
     from pandas._testing import assert_frame_equal
 
-    file = VERT_SPEC(os.path.join(this_dir, 'A190824.135614.vert'))
+    file = VERT_SPEC(os.path.join(this_dir, 'A190824.135614.VERT'))
     readin = pd.read_csv(os.path.join(this_dir, 'A190824.135614.csv'), index_col='idx')
     assert_frame_equal(readin, file.spec)
 
-    file = VERT_SPEC(os.path.join(this_dir, 'A201222.074849.vert'))
+    file = VERT_SPEC(os.path.join(this_dir, 'A201222.074849.VERT'))
     readin = pd.read_csv(os.path.join(this_dir, 'A201222.074849.csv'), index_col='idx')
     assert_frame_equal(readin, file.spec)
 
